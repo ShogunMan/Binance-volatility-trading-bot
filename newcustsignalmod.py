@@ -8,17 +8,17 @@ import threading
 
 from tradingview_ta.main import get_multiple_analysis
 
-OSC_INDICATORS = ['MACD', 'Stoch.RSI', 'Mom'] # Indicators to use in Oscillator analysis
+OSC_INDICATORS = ['MACD', 'RSI'] # Indicators to use in Oscillator analysis
 OSC_THRESHOLD = 2 # Must be less or equal to number of items in OSC_INDICATORS 
-MA_INDICATORS = ['EMA10', 'EMA20'] # Indicators to use in Moving averages analysis
+MA_INDICATORS = ['SMA50', 'EMA20'] # Indicators to use in Moving averages analysis
 MA_THRESHOLD = 2 # Must be less or equal to number of items in MA_INDICATORS 
-INTERVAL = Interval.INTERVAL_5_MINUTES #Timeframe for analysis
+INTERVAL = Interval.INTERVAL_1_MINUTE #Timeframe for analysis
 
 EXCHANGE = 'BINANCE'
 SCREENER = 'CRYPTO'
-PAIR_WITH = 'USDT'
-TICKERS = 'signalsample.txt'
-TIME_TO_WAIT = 4 # Minutes to wait between analysis
+PAIR_WITH = 'ETH'
+TICKERS = 'ethpairs25.txt'
+TIME_TO_WAIT = 1 # Minutes to wait between analysis
 FULL_LOG = False # List analysis result to console
 
 def analyze(pairs):
@@ -30,6 +30,7 @@ def analyze(pairs):
 
     try:
         analysis = get_multiple_analysis(SCREENER, INTERVAL, pairs)
+        
     except Exception as e:
         print("Exception:")
         print(e)
@@ -50,7 +51,7 @@ def analyze(pairs):
             signal_coins.append(coin.replace(EXCHANGE + ':',''))
   
     return signal_coins
-
+#if __name__ == '__main__':
 def do_work():
     signal_coins = []
     pairs = {}
